@@ -1,0 +1,27 @@
+{
+  "name": "mwlog-js",
+  "version": "1.0.0",
+  "description": "Developer friendly content transformation toolkit for converting Markdown to blog(HTML).",
+  "keywords": [
+    "markdown",
+    "html",
+    "parser",
+    "markdown-to-html",
+    "blog"
+  ],
+  "homepage": "https://github.com/Vis-halV/mwlog#readme",
+  "bugs": {
+    "url": "https://github.com/Vis-halV/mwlog/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vis-halV/mwlog.git"
+  },
+  "license": "MIT",
+  "author": "Vishal V",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  }
+}
