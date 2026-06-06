@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>mwlog-js Playground</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">mwlog-js v1.2.0</p>
+        <h1>Playground</h1>
+        <p class="subtitle">
+          Edit markdown, inspect the generated HTML, and preview the rendered output side by side.
+        </p>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Markdown</h2>
+          <span>Editable</span>
+        </div>
+        <textarea id="markdown-input" spellcheck="false" aria-label="Markdown input"></textarea>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>HTML Output</h2>
+          <span>Read-only</span>
+        </div>
+        <pre id="html-output" aria-live="polite"></pre>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Rendered Preview</h2>
+          <span>Live</span>
+        </div>
+        <div id="preview" class="preview" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+  </html>
