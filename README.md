@@ -32,9 +32,9 @@ yarn add mwlog-js
 ## Quick Start
 
 ```js
-import { mdToHtml } from "mwlog-js";
+import { parse } from "mwlog-js";
 
-const html = mdToHtml("# Hello");
+const html = parse("# Hello");
 ```
 
 To try the parser interactively in this repository:
@@ -99,17 +99,51 @@ Blocked links are rendered without `href`. Blocked images are rendered without `
 The package includes declaration files for all public exports.
 
 ```ts
-import { mdToHtml } from "mwlog-js";
+import { parse } from "mwlog-js";
 
 const markdown = "# Hello";
-const html: string = mdToHtml(markdown);
+const html: string = parse(markdown);
 ```
 
 Public API:
 
+- `parse(markdown: string): string`
 - `mdToHtml(markdown: string): string`
 - `markdownToHtml(markdown: string): string`
 - `escapeHtml(text: string): string`
+- `themes.default`
+- `themes.light`
+- `themes.dark`
+
+## Themes
+
+`mwlog-js` ships CSS theme assets alongside the parser. Markdown still converts to semantic HTML, and styling stays separate so the same assets can be reused by CLI tools and future UI packages.
+
+### Using a Built-in Theme
+
+```html
+<link
+  rel="stylesheet"
+  href="./node_modules/mwlog-js/themes/dark.css"
+/>
+```
+
+### Using a Custom Theme
+
+```html
+<link
+  rel="stylesheet"
+  href="./my-theme.css"
+/>
+```
+
+Generated HTML:
+
+```html
+<div class="mwlog">
+  ...
+</div>
+```
 
 ## Benchmarks
 
@@ -139,13 +173,13 @@ Benchmark results will vary by machine and Node.js version.
 ### React
 
 ```jsx
-import { mdToHtml } from "mwlog-js";
+import { parse } from "mwlog-js";
 
 function Preview({ markdown }) {
   return (
     <div
       dangerouslySetInnerHTML={{
-        __html: mdToHtml(markdown),
+        __html: parse(markdown),
       }}
     />
   );

@@ -3,39 +3,39 @@ import { markdownToHtml } from "../index.js";
 import { test } from "./test-helper.js";
 
 test("returns empty output for empty input", () => {
-  assert.equal(markdownToHtml(""), "");
+  assert.equal(markdownToHtml(""), '<div class="mwlog"></div>');
 });
 
 test("returns empty output for whitespace-only input", () => {
-  assert.equal(markdownToHtml("   "), "");
+  assert.equal(markdownToHtml("   "), '<div class="mwlog"></div>');
 });
 
 test("preserves broken emphasis as text", () => {
-  assert.equal(markdownToHtml("**unclosed"), "<p>**unclosed</p>");
+  assert.equal(markdownToHtml("**unclosed"), '<div class="mwlog"><p>**unclosed</p></div>');
 });
 
 test("preserves broken links as text", () => {
-  assert.equal(markdownToHtml("[broken link("), "<p>[broken link(</p>");
+  assert.equal(markdownToHtml("[broken link("), '<div class="mwlog"><p>[broken link(</p></div>');
 });
 
 test("renders paragraphs across lines", () => {
   assert.equal(
     markdownToHtml("first line\nsecond line"),
-    "<p>first line second line</p>",
+    '<div class="mwlog"><p>first line second line</p></div>',
   );
 });
 
 test("renders blockquotes with escaped html", () => {
   assert.equal(
     markdownToHtml("> <img src=x>"),
-    "<blockquote>&lt;img src=x&gt;</blockquote>",
+    '<div class="mwlog"><blockquote>&lt;img src=x&gt;</blockquote></div>',
   );
 });
 
 test("escapes raw html in paragraphs", () => {
   assert.equal(
     markdownToHtml('<script>alert("xss")</script>'),
-    "<p>&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;</p>",
+    '<div class="mwlog"><p>&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;</p></div>',
   );
 });
 
@@ -47,15 +47,15 @@ test("handles large repeated input deterministically", () => {
 
   const html = markdownToHtml(markdown);
 
-  assert.ok(html.startsWith("<h1>Title 0</h1>"));
+  assert.ok(html.startsWith('<div class="mwlog"><h1>Title 0</h1>'));
   assert.ok(html.includes("<strong>Bold 25</strong>"));
-  assert.ok(html.endsWith("<ul><li>Item 49</li></ul>"));
+  assert.ok(html.endsWith("<ul><li>Item 49</li></ul></div>"));
 });
 
 test("renders mixed formatting blocks consistently", () => {
   const markdown = "# Heading\n\n**Bold**\n\n- Item\n\n`Code`";
   assert.equal(
     markdownToHtml(markdown),
-    "<h1>Heading</h1><p><strong>Bold</strong></p><ul><li>Item</li></ul><p>`Code`</p>",
+    '<div class="mwlog"><h1>Heading</h1><p><strong>Bold</strong></p><ul><li>Item</li></ul><p>`Code`</p></div>',
   );
 });

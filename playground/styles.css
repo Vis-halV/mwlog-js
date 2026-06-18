@@ -27,7 +27,15 @@ body {
 }
 
 .hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
   padding: 32px 24px 12px;
+}
+
+.hero-copy {
+  max-width: 720px;
 }
 
 .eyebrow {
@@ -46,11 +54,47 @@ body {
 }
 
 .subtitle {
-  max-width: 720px;
   margin: 12px 0 0;
   color: var(--muted);
   font-size: 1rem;
   line-height: 1.5;
+}
+
+.theme-switcher {
+  display: grid;
+  gap: 8px;
+  min-width: 180px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(255, 253, 248, 0.72);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+.theme-switcher label {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.theme-switcher select {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  background: var(--panel);
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+.theme-switcher select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(178, 83, 45, 0.16);
 }
 
 .layout {
@@ -153,6 +197,15 @@ pre {
 }
 
 @media (max-width: 1080px) {
+  .hero {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .theme-switcher {
+    max-width: 320px;
+  }
+
   .layout {
     grid-template-columns: 1fr;
   }

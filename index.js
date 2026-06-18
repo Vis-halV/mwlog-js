@@ -1,1 +1,1 @@
-export { escapeHtml, markdownToHtml, mdToHtml } from "./src/index.js";
+export { escapeHtml, markdownToHtml, mdToHtml, parse, themes } from "./src/index.js";

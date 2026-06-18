@@ -29,12 +29,14 @@
     ".": {
       "types": "./index.d.ts",
       "import": "./index.js"
-    }
+    },
+    "./themes/*": "./themes/*"
   },
   "files": [
     "index.js",
     "index.d.ts",
     "src",
+    "themes",
     "README.md",
     "CHANGELOG.md",
     "LICENSE"

@@ -1,0 +1,126 @@
+.mwlog {
+  --mw-bg: #121212;
+  --mw-text: #f5f5f5;
+  --mw-border: #333333;
+  --mw-link: #8ab4f8;
+  --mw-code-bg: #1e1e1e;
+  --mw-code-text: #f5f5f5;
+  --mw-quote-bg: #181818;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.7;
+  background: var(--mw-bg);
+  color: var(--mw-text);
+  word-break: break-word;
+}
+
+.mwlog :where(h1, h2, h3, h4, h5, h6, p, blockquote, pre, table, ul, ol) {
+  margin: 0 0 1rem;
+}
+
+.mwlog :where(h1, h2, h3, h4, h5, h6) {
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.mwlog h1 {
+  font-size: 2rem;
+}
+
+.mwlog h2 {
+  font-size: 1.65rem;
+}
+
+.mwlog h3 {
+  font-size: 1.35rem;
+}
+
+.mwlog h4 {
+  font-size: 1.15rem;
+}
+
+.mwlog h5,
+.mwlog h6 {
+  font-size: 1rem;
+}
+
+.mwlog a {
+  color: var(--mw-link);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+}
+
+.mwlog a:hover {
+  text-decoration: underline;
+}
+
+.mwlog p,
+.mwlog li {
+  overflow-wrap: anywhere;
+}
+
+.mwlog ul,
+.mwlog ol {
+  padding-left: 1.5rem;
+}
+
+.mwlog blockquote {
+  padding: 0.75rem 1rem;
+  border-left: 4px solid var(--mw-border);
+  background: var(--mw-quote-bg);
+  color: var(--mw-text);
+}
+
+.mwlog pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border: 1px solid var(--mw-border);
+  border-radius: 0.75rem;
+  background: var(--mw-code-bg);
+  color: var(--mw-code-text);
+}
+
+.mwlog code {
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size: 0.95em;
+}
+
+.mwlog pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.mwlog :not(pre) > code {
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.35rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--mw-code-text);
+}
+
+.mwlog table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+}
+
+.mwlog th,
+.mwlog td {
+  padding: 0.625rem 0.75rem;
+  border: 1px solid var(--mw-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.mwlog th {
+  font-weight: 700;
+}
+
+.mwlog img {
+  max-width: 100%;
+  height: auto;
+}
+
+.mwlog input[type="checkbox"] {
+  margin-right: 0.5rem;
+  accent-color: var(--mw-link);
+}

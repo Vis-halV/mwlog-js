@@ -1,0 +1,117 @@
+.mwlog {
+  box-sizing: border-box;
+  color: inherit;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.7;
+  background: transparent;
+  word-break: break-word;
+}
+
+.mwlog :where(h1, h2, h3, h4, h5, h6, p, blockquote, pre, table, ul, ol) {
+  margin: 0 0 1rem;
+}
+
+.mwlog :where(h1, h2, h3, h4, h5, h6) {
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.mwlog h1 {
+  font-size: 2rem;
+}
+
+.mwlog h2 {
+  font-size: 1.65rem;
+}
+
+.mwlog h3 {
+  font-size: 1.35rem;
+}
+
+.mwlog h4 {
+  font-size: 1.15rem;
+}
+
+.mwlog h5,
+.mwlog h6 {
+  font-size: 1rem;
+}
+
+.mwlog a {
+  color: #2563eb;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+}
+
+.mwlog a:hover {
+  text-decoration: underline;
+}
+
+.mwlog p,
+.mwlog li {
+  overflow-wrap: anywhere;
+}
+
+.mwlog ul,
+.mwlog ol {
+  padding-left: 1.5rem;
+}
+
+.mwlog blockquote {
+  padding: 0.75rem 1rem;
+  border-left: 4px solid rgba(107, 114, 128, 0.35);
+  background: rgba(107, 114, 128, 0.08);
+  color: inherit;
+}
+
+.mwlog pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border: 1px solid rgba(107, 114, 128, 0.22);
+  border-radius: 0.75rem;
+  background: rgba(15, 23, 42, 0.04);
+}
+
+.mwlog code {
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size: 0.95em;
+}
+
+.mwlog pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.mwlog :not(pre) > code {
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.35rem;
+  background: rgba(15, 23, 42, 0.06);
+}
+
+.mwlog table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+}
+
+.mwlog th,
+.mwlog td {
+  padding: 0.625rem 0.75rem;
+  border: 1px solid rgba(107, 114, 128, 0.22);
+  text-align: left;
+  vertical-align: top;
+}
+
+.mwlog th {
+  font-weight: 700;
+}
+
+.mwlog img {
+  max-width: 100%;
+  height: auto;
+}
+
+.mwlog input[type="checkbox"] {
+  margin-right: 0.5rem;
+  accent-color: #2563eb;
+}
