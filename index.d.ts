@@ -7,6 +7,14 @@ export const themes: Readonly<{
   default: string;
   light: string;
   dark: string;
+  medium: Readonly<{
+    light: string;
+    dark: string;
+  }>;
+  awwwards: Readonly<{
+    light: string;
+    dark: string;
+  }>;
   custom: Readonly<{
     sample: string;
   }>;

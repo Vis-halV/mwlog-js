@@ -1,0 +1,146 @@
+.mwlog {
+  --mw-bg: #1b1b1b;
+  --mw-text: #e6e6e6;
+  --mw-text-secondary: #8a8a8a;
+  --mw-border: #2e2e2e;
+  --mw-link: #4db069;
+  --mw-code-bg: #242424;
+  --mw-code-text: #d4d4d4;
+  --mw-quote-border: #e6e6e6;
+  box-sizing: border-box;
+  font-family: "Georgia", "Charter", "Bitstream Charter", "Sitka Text", Cambria, serif;
+  font-size: 1.25rem;
+  line-height: 1.9;
+  background: var(--mw-bg);
+  color: var(--mw-text);
+  word-break: break-word;
+  letter-spacing: -0.003em;
+}
+
+.mwlog :where(h1, h2, h3, h4, h5, h6, p, blockquote, pre, table, ul, ol) {
+  margin: 0 0 2rem;
+}
+
+.mwlog :where(h1, h2, h3, h4, h5, h6) {
+  font-family: "Georgia", "Charter", "Bitstream Charter", serif;
+  font-weight: 700;
+  letter-spacing: -0.022em;
+  line-height: 1.18;
+  color: var(--mw-text);
+}
+
+.mwlog h1 { font-size: 2.6rem; margin-bottom: 1.25rem; }
+.mwlog h2 { font-size: 1.75rem; margin-top: 3rem; }
+.mwlog h3 { font-size: 1.35rem; margin-top: 2.5rem; }
+.mwlog h4 { font-size: 1.1rem; margin-top: 2rem; }
+.mwlog h5,
+.mwlog h6 { font-size: 1rem; margin-top: 2rem; }
+
+.mwlog p {
+  margin-bottom: 2rem;
+  overflow-wrap: anywhere;
+}
+
+.mwlog a {
+  color: var(--mw-link);
+  text-decoration: none;
+}
+
+.mwlog a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 0.07em;
+}
+
+.mwlog ul,
+.mwlog ol {
+  padding-left: 2rem;
+  margin-bottom: 2rem;
+}
+
+.mwlog li {
+  margin-bottom: 0.5rem;
+  overflow-wrap: anywhere;
+}
+
+.mwlog blockquote {
+  padding: 0 0 0 1.5rem;
+  margin: 2rem 0;
+  border-left: 3px solid var(--mw-quote-border);
+  background: transparent;
+  color: var(--mw-text);
+  font-style: italic;
+}
+
+.mwlog blockquote p {
+  margin: 0;
+}
+
+.mwlog pre {
+  overflow-x: auto;
+  padding: 1.25rem 1.5rem;
+  border: none;
+  border-radius: 0;
+  background: var(--mw-code-bg);
+  color: var(--mw-code-text);
+  font-size: 0.875rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.mwlog code {
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size: 0.875em;
+}
+
+.mwlog pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.mwlog :not(pre) > code {
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+  background: var(--mw-code-bg);
+  color: var(--mw-code-text);
+  font-size: 0.85em;
+}
+
+.mwlog table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.mwlog th,
+.mwlog td {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--mw-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.mwlog th {
+  font-weight: 700;
+  background: #242424;
+}
+
+.mwlog hr {
+  border: none;
+  border-top: 1px solid var(--mw-border);
+  margin: 3rem auto;
+  width: 30%;
+}
+
+.mwlog img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.mwlog input[type="checkbox"] {
+  margin-right: 0.5rem;
+  accent-color: var(--mw-link);
+}
