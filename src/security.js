@@ -1,9 +1,5 @@
 const BLOCKED_PROTOCOLS = new Set(["javascript", "data", "vbscript", "file"]);
 
-function normalizeUrl(url) {
-  return url.trim();
-}
-
 function extractProtocol(url) {
   const match = /^([a-zA-Z][a-zA-Z0-9+.-]*)\s*:/.exec(url);
   if (!match) {
@@ -14,7 +10,7 @@ function extractProtocol(url) {
 }
 
 export function sanitizeUrl(url) {
-  const normalizedUrl = normalizeUrl(url);
+  const normalizedUrl = url.trim();
   const protocol = extractProtocol(normalizedUrl);
 
   if (protocol && BLOCKED_PROTOCOLS.has(protocol)) {

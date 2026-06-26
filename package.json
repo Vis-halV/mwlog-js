@@ -5,12 +5,9 @@
   "keywords": [
     "markdown",
     "html",
-    "parser",
     "markdown-to-html",
     "blog",
-    "security",
-    "typescript",
-    "esm"
+    "typescript"
   ],
   "homepage": "https://github.com/Vis-halV/mwlog#readme",
   "bugs": {
@@ -23,6 +20,9 @@
   "license": "MIT",
   "author": "Vishal V",
   "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "main": "index.js",
   "types": "index.d.ts",
   "exports": {
@@ -38,12 +38,10 @@
     "src",
     "themes",
     "README.md",
-    "CHANGELOG.md",
     "LICENSE"
   ],
   "scripts": {
     "bench": "node benchmark.js",
-    "playground": "node playground/server.js",
     "test": "node test.js"
   }
 }

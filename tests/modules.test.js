@@ -5,23 +5,25 @@ import {
   CODE_FENCE_REGEX,
   HEADING_REGEX,
   IMAGE_REGEX,
+  INLINE_CODE_REGEX,
   ITALIC_REGEX,
   LINE_ENDINGS_REGEX,
+  LINK_OR_IMAGE_REGEX,
   LINK_REGEX,
   LIST_ITEM_REGEX,
+  ORDERED_LIST_ITEM_REGEX,
 } from "../src/constants.js";
 import { parseBlocks } from "../src/block.js";
 import { escapeHtml } from "../src/escape.js";
 import { parseInline } from "../src/inline.js";
 import { closeLists, renderListItem } from "../src/list.js";
 import { sanitizeUrl } from "../src/security.js";
-import { mdToHtml, parse, themes } from "../src/index.js";
+import { mdToHtml, themes } from "../src/index.js";
 import { test } from "./test-helper.js";
 
-test("src index exports parser aliases and themes", () => {
-  assert.equal(parse, mdToHtml);
+test("src index exports mdToHtml and themes", () => {
   assert.equal(mdToHtml("text"), '<div class="mwlog"><p>text</p></div>');
-  assert.equal(themes.medium.light, "node_modules/mwlog-js/themes/medium-light.css");
+  assert.equal(themes.medium.light, "mwlog-js/themes/medium-light.css");
 });
 
 test("block parser normalizes windows line endings", () => {
@@ -61,7 +63,10 @@ test("packed regex constants match supported markdown syntax", () => {
   assert.deepEqual(HEADING_REGEX.exec("### Heading")?.slice(1), ["###", "Heading"]);
   assert.deepEqual(BLOCKQUOTE_REGEX.exec("> quote")?.slice(1), ["quote"]);
   assert.deepEqual(LIST_ITEM_REGEX.exec("  - item")?.slice(1), ["  ", "item"]);
+  assert.deepEqual(ORDERED_LIST_ITEM_REGEX.exec("  1. item")?.slice(1), ["  ", "item"]);
   assert.deepEqual(IMAGE_REGEX.exec("![alt](img.png)")?.slice(1), ["alt", "img.png"]);
   assert.deepEqual(LINK_REGEX.exec("[label](https://example.com)")?.slice(1), ["label", "https://example.com"]);
+  assert.deepEqual(LINK_OR_IMAGE_REGEX.exec("![alt](img.png)")?.slice(1), ["!", "alt", "img.png"]);
+  assert.deepEqual(INLINE_CODE_REGEX.exec("`code`")?.slice(1), ["code"]);
   assert.deepEqual(ITALIC_REGEX.exec("*text*")?.slice(1), ["text"]);
 });

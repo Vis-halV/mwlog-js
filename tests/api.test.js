@@ -1,14 +1,10 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { escapeHtml, mdToHtml, markdownToHtml, parse, themes } from "../index.js";
+import { escapeHtml, mdToHtml, themes } from "../index.js";
 import { test } from "./test-helper.js";
 
-test("public api exports both parser names", () => {
-  assert.equal(markdownToHtml, mdToHtml);
-});
-
-test("public api exports parse alias", () => {
-  assert.equal(parse, markdownToHtml);
+test("public api exports mdToHtml", () => {
+  assert.equal(mdToHtml("# Hello"), '<div class="mwlog"><h1>Hello</h1></div>');
 });
 
 test("public api exposes escapeHtml", () => {
@@ -21,12 +17,12 @@ test("public api exposes escapeHtml", () => {
 test("public api exposes bundled theme paths", () => {
   assert.deepEqual(themes, {
     medium: {
-      light: "node_modules/mwlog-js/themes/medium-light.css",
-      dark: "node_modules/mwlog-js/themes/medium-dark.css",
+      light: "mwlog-js/themes/medium-light.css",
+      dark: "mwlog-js/themes/medium-dark.css",
     },
     awwwards: {
-      light: "node_modules/mwlog-js/themes/awwwards-light.css",
-      dark: "node_modules/mwlog-js/themes/awwwards-dark.css",
+      light: "mwlog-js/themes/awwwards-light.css",
+      dark: "mwlog-js/themes/awwwards-dark.css",
     },
   });
 });
@@ -38,13 +34,13 @@ test("public api themes are immutable", () => {
 });
 
 test("markdown output is wrapped in mwlog container", () => {
-  assert.equal(markdownToHtml("# Hello"), '<div class="mwlog"><h1>Hello</h1></div>');
+  assert.equal(mdToHtml("# Hello"), '<div class="mwlog"><h1>Hello</h1></div>');
 });
 
 test("theme files referenced by the public api exist and are scoped", () => {
   for (const family of Object.values(themes)) {
     for (const themePath of Object.values(family)) {
-      const packageRelativePath = themePath.replace("node_modules/mwlog-js/", "../");
+      const packageRelativePath = themePath.replace("mwlog-js/", "../");
       const css = readFileSync(new URL(packageRelativePath, import.meta.url), "utf8");
 
       assert.ok(css.includes(".mwlog"));
@@ -67,7 +63,6 @@ test("package publishes public entrypoints and theme assets", () => {
   assert.ok(packageJson.files.includes("src"));
   assert.ok(packageJson.files.includes("themes"));
   assert.ok(packageJson.files.includes("README.md"));
-  assert.ok(packageJson.files.includes("CHANGELOG.md"));
   assert.ok(packageJson.files.includes("LICENSE"));
 });
 
@@ -77,6 +72,7 @@ test("packed type declarations and readme document current themes", () => {
 
   assert.ok(declarations.includes("medium: Readonly"));
   assert.ok(declarations.includes("awwwards: Readonly"));
+  assert.ok(declarations.includes("mdToHtml"));
   assert.ok(!declarations.includes("default: string"));
   assert.ok(readme.includes("themes.medium.light"));
   assert.ok(readme.includes("themes.awwwards.dark"));

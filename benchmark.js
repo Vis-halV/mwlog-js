@@ -1,4 +1,4 @@
-import { markdownToHtml } from "./index.js";
+import { mdToHtml } from "./index.js";
 
 const sample = `
 # Benchmark
@@ -20,7 +20,7 @@ const iterations = 10000;
 const start = process.hrtime.bigint();
 
 for (let index = 0; index < iterations; index += 1) {
-  markdownToHtml(sample);
+  mdToHtml(sample);
 }
 
 const end = process.hrtime.bigint();

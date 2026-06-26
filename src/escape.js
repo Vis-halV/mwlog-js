@@ -1,8 +1,13 @@
+const ESCAPE_MAP = {
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#39;",
+};
+
+const ESCAPE_REGEX = /[&<>"']/g;
+
 export function escapeHtml(text) {
-  return text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
+  return text.replace(ESCAPE_REGEX, (char) => ESCAPE_MAP[char]);
 }

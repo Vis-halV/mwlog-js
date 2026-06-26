@@ -5,6 +5,7 @@ import {
   HEADING_REGEX,
   LINE_ENDINGS_REGEX,
   LIST_ITEM_REGEX,
+  ORDERED_LIST_ITEM_REGEX,
 } from "./constants.js";
 import { escapeHtml } from "./escape.js";
 import { parseInline } from "./inline.js";
@@ -15,8 +16,10 @@ export function parseBlocks(markdown) {
   const html = [];
   const listStack = [];
   let inCodeBlock = false;
+  let codeLang = "";
   let codeLines = [];
   let paragraphLines = [];
+  let blockquoteLines = [];
 
   function flushParagraph() {
     if (paragraphLines.length === 0) {
@@ -28,13 +31,25 @@ export function parseBlocks(markdown) {
     paragraphLines = [];
   }
 
+  function flushBlockquote() {
+    if (blockquoteLines.length === 0) {
+      return;
+    }
+
+    const content = parseInline(escapeHtml(blockquoteLines.join(" ")));
+    html.push(`<blockquote><p>${content}</p></blockquote>`);
+    blockquoteLines = [];
+  }
+
   function flushCodeBlock() {
     if (!inCodeBlock) {
       return;
     }
 
-    html.push(`<pre><code>${escapeHtml(codeLines.join("\n"))}</code></pre>`);
+    const langAttr = codeLang ? ` class="language-${escapeHtml(codeLang)}"` : "";
+    html.push(`<pre><code${langAttr}>${escapeHtml(codeLines.join("\n"))}</code></pre>`);
     inCodeBlock = false;
+    codeLang = "";
     codeLines = [];
   }
 
@@ -51,14 +66,17 @@ export function parseBlocks(markdown) {
 
     if (CODE_FENCE_REGEX.test(line)) {
       flushParagraph();
+      flushBlockquote();
       html.push(closeLists(listStack));
       inCodeBlock = true;
+      codeLang = line.replace(CODE_FENCE_REGEX, "").trim();
       codeLines = [];
       continue;
     }
 
     if (BLANK_LINE_REGEX.test(line)) {
       flushParagraph();
+      flushBlockquote();
       html.push(closeLists(listStack));
       continue;
     }
@@ -66,6 +84,7 @@ export function parseBlocks(markdown) {
     const headingMatch = HEADING_REGEX.exec(line);
     if (headingMatch) {
       flushParagraph();
+      flushBlockquote();
       html.push(closeLists(listStack));
       const level = headingMatch[1].length;
       const content = parseInline(escapeHtml(headingMatch[2].trim()));
@@ -77,10 +96,11 @@ export function parseBlocks(markdown) {
     if (quoteMatch) {
       flushParagraph();
       html.push(closeLists(listStack));
-      const content = parseInline(escapeHtml(quoteMatch[1].trim()));
-      html.push(`<blockquote>${content}</blockquote>`);
+      blockquoteLines.push(quoteMatch[1].trim());
       continue;
     }
+
+    flushBlockquote();
 
     const listMatch = LIST_ITEM_REGEX.exec(line);
     if (listMatch) {
@@ -92,6 +112,16 @@ export function parseBlocks(markdown) {
       continue;
     }
 
+    const orderedMatch = ORDERED_LIST_ITEM_REGEX.exec(line);
+    if (orderedMatch) {
+      flushParagraph();
+      const indent = orderedMatch[1].replace(/\t/g, "  ").length;
+      const depth = Math.floor(indent / 2);
+      const content = escapeHtml(orderedMatch[2].trim());
+      html.push(renderListItem(listStack, depth, content, "ol"));
+      continue;
+    }
+
     if (listStack.length > 0) {
       html.push(closeLists(listStack));
     }
@@ -100,6 +130,7 @@ export function parseBlocks(markdown) {
   }
 
   flushParagraph();
+  flushBlockquote();
   if (inCodeBlock) {
     flushCodeBlock();
   }

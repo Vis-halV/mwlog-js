@@ -1,4 +1,4 @@
-const packageRoot = "node_modules/mwlog-js";
+const packageRoot = "mwlog-js";
 
 export const themes = Object.freeze({
   medium: Object.freeze({
