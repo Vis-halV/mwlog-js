@@ -68,13 +68,6 @@ Theme CSS files are included under `themes/`.
 <link rel="stylesheet" href="mwlog-js/themes/medium-light.css" />
 ```
 
-Files:
-
-- `themes/medium-light.css`
-- `themes/medium-dark.css`
-- `themes/awwwards-light.css`
-- `themes/awwwards-dark.css`
-
 ## Test
 
 ```bash
