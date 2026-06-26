@@ -111,9 +111,10 @@ Public API:
 - `mdToHtml(markdown: string): string`
 - `markdownToHtml(markdown: string): string`
 - `escapeHtml(text: string): string`
-- `themes.default`
-- `themes.light`
-- `themes.dark`
+- `themes.medium.light`
+- `themes.medium.dark`
+- `themes.awwwards.light`
+- `themes.awwwards.dark`
 
 ## Themes
 
@@ -124,7 +125,7 @@ Public API:
 ```html
 <link
   rel="stylesheet"
-  href="./node_modules/mwlog-js/themes/dark.css"
+  href="./node_modules/mwlog-js/themes/medium-dark.css"
 />
 ```
 

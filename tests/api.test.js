@@ -20,32 +20,65 @@ test("public api exposes escapeHtml", () => {
 
 test("public api exposes bundled theme paths", () => {
   assert.deepEqual(themes, {
-    default: "node_modules/mwlog-js/themes/default.css",
-    light: "node_modules/mwlog-js/themes/light.css",
-    dark: "node_modules/mwlog-js/themes/dark.css",
-    custom: {
-      sample: "node_modules/mwlog-js/themes/custom/sample.css",
+    medium: {
+      light: "node_modules/mwlog-js/themes/medium-light.css",
+      dark: "node_modules/mwlog-js/themes/medium-dark.css",
+    },
+    awwwards: {
+      light: "node_modules/mwlog-js/themes/awwwards-light.css",
+      dark: "node_modules/mwlog-js/themes/awwwards-dark.css",
     },
   });
+});
+
+test("public api themes are immutable", () => {
+  assert.ok(Object.isFrozen(themes));
+  assert.ok(Object.isFrozen(themes.medium));
+  assert.ok(Object.isFrozen(themes.awwwards));
 });
 
 test("markdown output is wrapped in mwlog container", () => {
   assert.equal(markdownToHtml("# Hello"), '<div class="mwlog"><h1>Hello</h1></div>');
 });
 
-test("theme files are published and scoped", () => {
+test("theme files referenced by the public api exist and are scoped", () => {
+  for (const family of Object.values(themes)) {
+    for (const themePath of Object.values(family)) {
+      const packageRelativePath = themePath.replace("node_modules/mwlog-js/", "../");
+      const css = readFileSync(new URL(packageRelativePath, import.meta.url), "utf8");
+
+      assert.ok(css.includes(".mwlog"));
+    }
+  }
+});
+
+test("package publishes public entrypoints and theme assets", () => {
   const packageJson = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8"));
 
-  assert.ok(packageJson.files.includes("themes"));
+  assert.equal(packageJson.main, "index.js");
+  assert.equal(packageJson.types, "index.d.ts");
+  assert.deepEqual(packageJson.exports["."], {
+    types: "./index.d.ts",
+    import: "./index.js",
+  });
   assert.equal(packageJson.exports["./themes/*"], "./themes/*");
+  assert.ok(packageJson.files.includes("index.js"));
+  assert.ok(packageJson.files.includes("index.d.ts"));
+  assert.ok(packageJson.files.includes("src"));
+  assert.ok(packageJson.files.includes("themes"));
+  assert.ok(packageJson.files.includes("README.md"));
+  assert.ok(packageJson.files.includes("CHANGELOG.md"));
+  assert.ok(packageJson.files.includes("LICENSE"));
+});
 
-  for (const themeFile of [
-    "../themes/default.css",
-    "../themes/light.css",
-    "../themes/dark.css",
-    "../themes/custom/sample.css",
-  ]) {
-    const css = readFileSync(new URL(themeFile, import.meta.url), "utf8");
-    assert.ok(css.includes(".mwlog {"));
-  }
+test("packed type declarations and readme document current themes", () => {
+  const declarations = readFileSync(new URL("../index.d.ts", import.meta.url), "utf8");
+  const readme = readFileSync(new URL("../README.md", import.meta.url), "utf8");
+
+  assert.ok(declarations.includes("medium: Readonly"));
+  assert.ok(declarations.includes("awwwards: Readonly"));
+  assert.ok(!declarations.includes("default: string"));
+  assert.ok(readme.includes("themes.medium.light"));
+  assert.ok(readme.includes("themes.awwwards.dark"));
+  assert.ok(readme.includes("themes/medium-dark.css"));
 });

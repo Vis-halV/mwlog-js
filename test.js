@@ -5,5 +5,6 @@ import "./tests/lists.test.js";
 import "./tests/codeblocks.test.js";
 import "./tests/formatting.test.js";
 import "./tests/edgecases.test.js";
+import "./tests/modules.test.js";
 
 console.log("All tests passed.");
