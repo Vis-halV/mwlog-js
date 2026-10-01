@@ -1,6 +1,6 @@
 {
   "name": "mwlog-js",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "A lightweight, secure Markdown-to-HTML converter for JavaScript.",
   "keywords": [
     "markdown",
