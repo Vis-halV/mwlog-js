@@ -85,3 +85,52 @@ test("blocks data image sources", () => {
     '<div class="mwlog"><p><img alt="x" /></p></div>',
   );
 });
+
+test("allows relative links", () => {
+  assert.equal(
+    mdToHtml("[Page](/docs/getting-started)"),
+    '<div class="mwlog"><p><a href="/docs/getting-started">Page</a></p></div>',
+  );
+});
+
+test("allows fragment links", () => {
+  assert.equal(
+    mdToHtml("[Section](#installation)"),
+    '<div class="mwlog"><p><a href="#installation">Section</a></p></div>',
+  );
+});
+
+test("allows protocol-relative links", () => {
+  assert.equal(
+    mdToHtml("[Example](//example.com/path)"),
+    '<div class="mwlog"><p><a href="//example.com/path">Example</a></p></div>',
+  );
+});
+
+test("blocks unknown explicit protocols", () => {
+  assert.equal(
+    mdToHtml("[x](ftp://example.com/file)"),
+    '<div class="mwlog"><p><a>x</a></p></div>',
+  );
+});
+
+test("blocks blob URLs", () => {
+  assert.equal(
+    mdToHtml("[x](blob:https://example.com/id)"),
+    '<div class="mwlog"><p><a>x</a></p></div>',
+  );
+});
+
+test("blocks unknown protocol URLs", () => {
+  assert.equal(
+    mdToHtml("[x](custom:thing)"),
+    '<div class="mwlog"><p><a>x</a></p></div>',
+  );
+});
+
+test("trims safe URLs", () => {
+  assert.equal(
+    mdToHtml("[Google](  https://google.com  )"),
+    '<div class="mwlog"><p><a href="https://google.com">Google</a></p></div>',
+  );
+});

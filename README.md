@@ -57,16 +57,38 @@ Blocked links render without `href`. Blocked images render without `src`.
 
 ## Themes
 
-Theme CSS files are included under `themes/`.
+Theme CSS files are included in the published package.
 
-- `themes.medium.light`
-- `themes.medium.dark`
-- `themes.awwwards.light`
-- `themes.awwwards.dark`
+Available themes:
 
-```html
+- themes.medium.light
+- themes.medium.dark
+- themes.awwwards.light
+- themes.awwwards.dark
+
+The corresponding CSS files are:
+
+- themes/medium-light.css
+- themes/medium-dark.css
+- themes/awwwards-light.css
+- themes/awwwards-dark.css
+
+You can use the theme paths from the public API:
+
+import { themes } from "mwlog-js";
+
+console.log(themes.medium.light);
+console.log(themes.medium.dark);
+console.log(themes.awwwards.light);
+console.log(themes.awwwards.dark);
+
+
+Or reference a theme directly from the published package:
+
 <link rel="stylesheet" href="mwlog-js/themes/medium-light.css" />
-```
+<link rel="stylesheet" href="mwlog-js/themes/medium-dark.css" />
+<link rel="stylesheet" href="mwlog-js/themes/awwwards-light.css" />
+<link rel="stylesheet" href="mwlog-js/themes/awwwards-dark.css" />
 
 ## Test
 
